@@ -70,7 +70,7 @@ const TodoForm = ({ todoList, setTodoList }) => {
                     </div>
                     <button
                         type="submit"
-                        className="bg-blue-500 w-full hover:bg-blue-700 text-white font-bold py-4 px-8 rounded-md transition-colors duration-300 tracking-wider mt-4 md:mt-0 md:w-auto "
+                        className="bg-green-500 w-full hover:bg-green-700 text-white font-bold py-4 px-8 rounded-md transition-colors duration-300 tracking-wider mt-4 md:mt-0 md:w-auto "
                         disabled={isSubmitting}
                     >
                         {isSubmitting ? "Adding...." : "Add"}

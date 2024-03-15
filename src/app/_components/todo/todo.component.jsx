@@ -8,20 +8,30 @@ const ToDo = () => {
     const [todoList, setTodoList] = useState([]);
     const [isDeleting, setIsDeleting] = useState(false);
     const [isCompletedScreen, setIscompletedScreen] = useState(false);
+    const [completedTodoList, setCompletedTodoList] = useState([]);
+
+    const lastCompletedShowFirst = [...completedTodoList].reverse();
 
     const handleDeleteAllTodos = () => {
-        alert("Are you sure? You want to Delete all todos?");
-        localStorage.removeItem("storeTodoList");
-        setIsDeleting(true);
-        setTodoList([]);
+        const confirmDelete = window.confirm(
+            "Are you sure you want to delete all todos?"
+        );
+        if (confirmDelete) {
+            setIsDeleting(true);
+            localStorage.removeItem("storeTodoList");
+            setTodoList([]);
 
-        setTimeout(() => {
-            setIsDeleting(false);
-        }, 500);
+            setTimeout(() => {
+                setIsDeleting(false);
+            }, 300);
+        }
     };
 
     useEffect(() => {
         const storedTodoData = localStorage.getItem("storeTodoList");
+        const storedCompletedTodoData = localStorage.getItem(
+            "storeCompletedTodoList"
+        );
         if (storedTodoData) {
             try {
                 const parsedTodoData = JSON.parse(storedTodoData);
@@ -31,6 +41,19 @@ const ToDo = () => {
             }
         } else {
             setTodoList([]);
+        }
+
+        if (storedCompletedTodoData) {
+            try {
+                const parsedCompletedTodoData = JSON.parse(
+                    storedCompletedTodoData
+                );
+                setCompletedTodoList(parsedCompletedTodoData);
+            } catch (error) {
+                setCompletedTodoList([]);
+            }
+        } else {
+            setCompletedTodoList([]);
         }
     }, []);
 
@@ -48,40 +71,34 @@ const ToDo = () => {
                     <div className="bg-gray-300">
                         <button
                             className={`p-3 ${
-                                isCompletedScreen
-                                    ? ""
-                                    : "text-white bg-green-500"
+                                !isCompletedScreen && "text-white bg-green-500"
                             }`}
-                            onClick={() => {
-                                setIscompletedScreen(false);
-                            }}
+                            onClick={() => setIscompletedScreen(false)}
                         >
                             To Do
                         </button>
                         <button
                             className={`p-3 ${
-                                isCompletedScreen
-                                    ? "text-white bg-green-500"
-                                    : ""
+                                isCompletedScreen && "text-white bg-green-500"
                             }`}
-                            onClick={() => {
-                                setIscompletedScreen(true);
-                            }}
+                            onClick={() => setIscompletedScreen(true)}
                         >
                             Completed
                         </button>
                     </div>
-                    <button
-                        onClick={handleDeleteAllTodos}
-                        disabled={todoList.length === 0}
-                        className="bg-blue-500 md:w-auto hover:bg-blue-700 text-white px-4 py-2 font-bold md:py-4 md:px-8 rounded-md transition-colors duration-300 tracking-wider mt-4 md:mt-0"
-                    >
-                        {isDeleting ? "Deleting..." : "  Delete All Todos"}
-                    </button>
+                    {!isCompletedScreen && (
+                        <button
+                            onClick={handleDeleteAllTodos}
+                            disabled={todoList.length === 0}
+                            className="bg-green-500 md:w-auto hover:bg-green-700 text-white px-4 py-2 font-bold md:py-4 md:px-8 rounded-md transition-colors duration-300 tracking-wider mt-4 md:mt-0"
+                        >
+                            {isDeleting ? "Deleting..." : "  Delete All Todos"}
+                        </button>
+                    )}
                 </div>
 
                 {isCompletedScreen ? (
-                    todoList.length === 0 ? (
+                    lastCompletedShowFirst.length === 0 ? (
                         <div className="flex flex-col items-center justify-center text-gray-500">
                             <p className="text-xl md:text-2xl font-bold mb-4">
                                 No Completed Todo Tasks Yet
@@ -91,14 +108,15 @@ const ToDo = () => {
                             </p>
                         </div>
                     ) : (
-                        todoList.map((item, index) => {
+                        lastCompletedShowFirst.map((item, index) => {
                             return (
                                 <TodoListItem
+                                    isCompletedScreen={isCompletedScreen}
                                     key={index}
                                     item={item}
                                     itemId={index}
-                                    todoList={todoList}
-                                    setTodoList={setTodoList}
+                                    completedTodoList={completedTodoList}
+                                    setCompletedTodoList={setCompletedTodoList}
                                 />
                             );
                         })
@@ -121,6 +139,8 @@ const ToDo = () => {
                                 itemId={index}
                                 todoList={todoList}
                                 setTodoList={setTodoList}
+                                completedTodoList={completedTodoList}
+                                setCompletedTodoList={setCompletedTodoList}
                             />
                         );
                     })
