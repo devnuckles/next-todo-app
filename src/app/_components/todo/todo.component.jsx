@@ -7,6 +7,7 @@ import TodoListItem from "./todo-list-item.component";
 const ToDo = () => {
     const [todoList, setTodoList] = useState([]);
     const [isDeleting, setIsDeleting] = useState(false);
+    const [isCompletedScreen, setIscompletedScreen] = useState(false);
 
     const handleDeleteAllTodos = () => {
         alert("Are you sure? You want to Delete all todos?");
@@ -44,9 +45,32 @@ const ToDo = () => {
 
             <div className="w-full h-full overflow-y-auto">
                 <div className="flex items-center  justify-between w-full p-4">
-                    <h2 className="text-xl md:text-2xl font-semibold text-gray-700 md:mb-4">
-                        Todo List
-                    </h2>
+                    <div className="bg-gray-300">
+                        <button
+                            className={`p-3 ${
+                                isCompletedScreen
+                                    ? ""
+                                    : "text-white bg-green-500"
+                            }`}
+                            onClick={() => {
+                                setIscompletedScreen(false);
+                            }}
+                        >
+                            To Do
+                        </button>
+                        <button
+                            className={`p-3 ${
+                                isCompletedScreen
+                                    ? "text-white bg-green-500"
+                                    : ""
+                            }`}
+                            onClick={() => {
+                                setIscompletedScreen(true);
+                            }}
+                        >
+                            Completed
+                        </button>
+                    </div>
                     <button
                         onClick={handleDeleteAllTodos}
                         disabled={todoList.length === 0}
@@ -56,7 +80,30 @@ const ToDo = () => {
                     </button>
                 </div>
 
-                {todoList.length === 0 ? (
+                {isCompletedScreen ? (
+                    todoList.length === 0 ? (
+                        <div className="flex flex-col items-center justify-center text-gray-500">
+                            <p className="text-xl md:text-2xl font-bold mb-4">
+                                No Completed Todo Tasks Yet
+                            </p>
+                            <p className="text-sm md:text-base">
+                                Complete your first task
+                            </p>
+                        </div>
+                    ) : (
+                        todoList.map((item, index) => {
+                            return (
+                                <TodoListItem
+                                    key={index}
+                                    item={item}
+                                    itemId={index}
+                                    todoList={todoList}
+                                    setTodoList={setTodoList}
+                                />
+                            );
+                        })
+                    )
+                ) : todoList.length === 0 ? (
                     <div className="flex flex-col items-center justify-center text-gray-500">
                         <p className="text-xl md:text-2xl font-bold mb-4">
                             No Todo Tasks Yet
