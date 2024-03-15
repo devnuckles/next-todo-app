@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import TodoForm from "./todo-form.component";
 import TodoListItem from "./todo-list-item.component";
-import Link from "next/link";
+import { UserButton } from "@clerk/nextjs";
 
 const ToDo = () => {
     const [todoList, setTodoList] = useState([]);
@@ -64,12 +64,8 @@ const ToDo = () => {
                 <h1 className="text-2xl md:text-3xl font-bold text-gray-900 mb-5">
                     To Do APP
                 </h1>
-                <Link
-                    href="https://fluent-magpie-68.accounts.dev/user"
-                    className="font-semibold text-lg shadow-lg py-3 rounded px-5 bg-blue-500 text-white"
-                >
-                    My Account
-                </Link>
+
+                <UserButton />
             </div>
             <div className="mb-6 w-full p-5">
                 <TodoForm todoList={todoList} setTodoList={setTodoList} />
