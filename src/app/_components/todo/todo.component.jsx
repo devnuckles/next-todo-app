@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import TodoForm from "./todo-form.component";
 import TodoListItem from "./todo-list-item.component";
+import Link from "next/link";
 
 const ToDo = () => {
     const [todoList, setTodoList] = useState([]);
@@ -59,9 +60,17 @@ const ToDo = () => {
 
     return (
         <div className="p-10 md:rounded-lg md:shadow-2xl flex flex-col mx-auto items-center bg-gray-100 w-full md:w-[60%] h-auto md:h-[85%]">
-            <h1 className="text-2xl md:text-3xl font-bold text-gray-900 mb-5">
-                To Do APP
-            </h1>
+            <div className="flex items-center justify-between w-full">
+                <h1 className="text-2xl md:text-3xl font-bold text-gray-900 mb-5">
+                    To Do APP
+                </h1>
+                <Link
+                    href="https://fluent-magpie-68.accounts.dev/user"
+                    className="font-semibold text-lg shadow-lg py-3 rounded px-5 bg-blue-500 text-white"
+                >
+                    My Account
+                </Link>
+            </div>
             <div className="mb-6 w-full p-5">
                 <TodoForm todoList={todoList} setTodoList={setTodoList} />
             </div>
