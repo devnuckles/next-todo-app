@@ -71,7 +71,7 @@ const ToDo = () => {
                     <div className="bg-gray-300">
                         <button
                             className={`p-3 ${
-                                !isCompletedScreen && "text-white bg-green-500"
+                                !isCompletedScreen && "text-white bg-blue-500"
                             }`}
                             onClick={() => setIscompletedScreen(false)}
                         >
@@ -79,7 +79,7 @@ const ToDo = () => {
                         </button>
                         <button
                             className={`p-3 ${
-                                isCompletedScreen && "text-white bg-green-500"
+                                isCompletedScreen && "text-white bg-blue-500"
                             }`}
                             onClick={() => setIscompletedScreen(true)}
                         >
@@ -90,7 +90,7 @@ const ToDo = () => {
                         <button
                             onClick={handleDeleteAllTodos}
                             disabled={todoList.length === 0}
-                            className="bg-green-500 md:w-auto hover:bg-green-700 text-white px-4 py-2 font-bold md:py-4 md:px-8 rounded-md transition-colors duration-300 tracking-wider mt-4 md:mt-0"
+                            className="bg-blue-500 md:w-auto hover:bg-blue-700 text-white px-4 py-2 font-bold md:py-4 md:px-8 rounded-md transition-colors duration-300 tracking-wider mt-4 md:mt-0"
                         >
                             {isDeleting ? "Deleting..." : "  Delete All Todos"}
                         </button>
