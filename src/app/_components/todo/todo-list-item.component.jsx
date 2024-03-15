@@ -61,9 +61,9 @@ const TodoListItem = ({
     };
 
     return (
-        <div className=" flex items-center justify-between bg-green-500 p-4 my-4 w-full md:w-auto shadow-lg rounded-lg">
+        <div className=" flex items-center justify-between bg-blue-500 p-4 my-4 w-full md:w-auto shadow-lg rounded-lg">
             <div>
-                <h1 className="text-white font-semibold text-2xl md:text-3xl hover:text-green-300 transition-colors duration-200">
+                <h1 className="text-white font-semibold text-2xl md:text-3xl hover:text-blue-300 transition-colors duration-200">
                     {item.todoTitle}
                 </h1>
                 <p className="text-gray-200 text-sm md:text-base">
@@ -79,7 +79,7 @@ const TodoListItem = ({
                         }}
                     />
                     <CheckIcon
-                        className=" text-[40px] text-white hover:text-green-900 duration-300 cursor-pointer"
+                        className=" text-[40px] text-white hover:text-blue-900 duration-300 cursor-pointer"
                         onClick={() => {
                             handleCompleteSingleTodo(itemId);
                         }}
