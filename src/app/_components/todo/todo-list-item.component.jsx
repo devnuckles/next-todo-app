@@ -61,7 +61,7 @@ const TodoListItem = ({
     };
 
     return (
-        <div className=" flex items-center justify-between bg-blue-500 p-4 my-4 w-full md:w-auto shadow-lg rounded-lg">
+        <div className=" flex items-center justify-between bg-blue-500 p-4 my-4 w-full md:w-auto shadow-lg rounded-md">
             <div>
                 <h1 className="text-white font-semibold text-2xl md:text-3xl hover:text-blue-300 transition-colors duration-200">
                     {item.todoTitle}

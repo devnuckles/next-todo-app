@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import TodoForm from "./todo-form.component";
 import TodoListItem from "./todo-list-item.component";
+import CommonModal from "../common/modal.component";
 import { UserButton } from "@clerk/nextjs";
 
 const ToDo = () => {
@@ -68,7 +69,15 @@ const ToDo = () => {
                 <UserButton />
             </div>
             <div className="mb-6 w-full p-5">
-                <TodoForm todoList={todoList} setTodoList={setTodoList} />
+                <CommonModal
+                    modalTitle="Add Task"
+                    modalElement={
+                        <TodoForm
+                            todoList={todoList}
+                            setTodoList={setTodoList}
+                        />
+                    }
+                />
             </div>
 
             <div className="w-full h-full overflow-y-auto">
@@ -95,7 +104,7 @@ const ToDo = () => {
                         <button
                             onClick={handleDeleteAllTodos}
                             disabled={todoList.length === 0}
-                            className="bg-blue-500 md:w-auto hover:bg-blue-700 text-white px-4 py-2 font-bold md:py-4 md:px-8 rounded-md transition-colors duration-300 tracking-wider mt-4 md:mt-0"
+                            className="bg-blue-500 md:w-auto hover:bg-blue-700 text-white px-4 py-2 font-bold md:py-4 md:px-8 transition-colors duration-300 tracking-wider mt-4 md:mt-0"
                         >
                             {isDeleting ? "Deleting..." : "  Delete All Todos"}
                         </button>
